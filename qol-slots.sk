@@ -22,11 +22,17 @@ on join:
 		if player don't have permission "slots.bypass":
 			kick player due to "Player limit! %{players}%/%{slots}%"
 			stop
+			
+	else:
+		send "&c%player% joined the game!"
+		stop
+		
 		if player has permission "slot.bypass":
 			stop
 
 
 on quit:
+	send "&b%player% left the game!"
 	if {players} = 0:
 		stop
 	else:
