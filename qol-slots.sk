@@ -1,0 +1,34 @@
+variables:
+	{players} = 0
+#set slots (down) to how many slots u have in server.properties!!!
+	{slots} = 20
+
+
+#
+on server list ping:
+	set the fake max players count to {slots}
+
+
+command /slots [<number>]:
+	trigger:
+		if player has permission "qol.slots":
+			set {slots} to arg-1
+			send "&bNew slot limit: %{slots}%"
+
+on join:
+	add 1 to {players}
+	wait 1 tick
+	if {players} > {slots}:
+		if player don't have permission "slots.bypass":
+			kick player due to "Player limit! %{players}%/%{slots}%"
+			stop
+		if player has permission "slot.bypass":
+			stop
+
+
+on quit:
+	if {players} = 0:
+		stop
+	else:
+		remove 1 from {players}
+
